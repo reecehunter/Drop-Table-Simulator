@@ -1,9 +1,4 @@
 // Define the droptable
-// const data = {
-//   rare: 34.5,
-//   mythic: 11.5,
-//   legendary: 8,
-// };
 const data = {
   axolotl_bucket1: 1,
   clownfish_bucket1: 1,
@@ -21,26 +16,46 @@ const data = {
   pufferfish2: 2.875,
 };
 
-const simulateDrops = (input, amount) => {
+const simulateDrops = (input, amount, total = 100) => {
   // Define the variable to be returned
-  let result = {};
+  const result = {};
+
+  // Define the variable to put the chances into an array to be reduced later
+  const chancesArray = [];
 
   // Copy the keys from our input variable
   for (const key in input) {
     result[key] = 0;
+    chancesArray.push(input[key]);
   }
 
   // Loop through "amount" times
-  for (i = 0; i < amount; i++) {
-    // Loop through the input
-    for (const key in input) {
-      // Define our "chance"
-      var d = Math.random() * 100;
-      // Calculate and add the result to the return variable
-      if (d < input[key]) {
-        result[key]++;
-      }
+  for (let i = 0; i < amount; i++) {
+    // Define a random number as our "dice roll" out of the total paramater (100 default)
+    const rand = Math.random() * total;
+
+    // Calculate find the closest rarity in the list of rarity chances
+    // const rarity = Object.values(input).reduce((prev, curr) => {
+    //   console.log(prev, curr);
+    //   return Math.abs(curr - rand) < Math.abs(prev - rand) ? curr : prev;
+    // });
+    let rarity = Object.values(input)[0];
+    for (const key in Object.values(input)) {
+      const value = Object.values(input)[key];
+      // console.log(value, rand / Object.values(input).length);
+      if (value < rand / Object.values(input).length) rarity = value;
     }
+
+    // Get the drop table based on the rarity
+    const droptable = [];
+    for (const key in input) {
+      if (rarity === input[key]) droptable.push(key);
+    }
+
+    // Define a random number out of the number of drops in the calculated drop table
+    const rand2 = Math.round(Math.random() * droptable.length);
+    // Add the final chosen item to the result
+    result[droptable[rand2]]++;
   }
 
   // Retun the result
@@ -48,4 +63,4 @@ const simulateDrops = (input, amount) => {
 };
 
 // Log the simulated drops result
-console.log(simulateDrops(data, 100));
+console.log(simulateDrops(data, 10000));
