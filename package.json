@@ -1,0 +1,25 @@
+{
+  "name": "drop-table-simulator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reecehunter/Drop-Table-Simulator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reecehunter/Drop-Table-Simulator/issues"
+  },
+  "homepage": "https://github.com/reecehunter/Drop-Table-Simulator#readme",
+  "dependencies": {
+    "canvas": "^2.11.0",
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3"
+  }
+}
